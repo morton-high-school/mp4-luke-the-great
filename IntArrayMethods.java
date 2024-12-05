@@ -151,25 +151,27 @@ public class IntArrayMethods{
 
     public static double[] arrayRollingAverage(int[] a, int b){
         int count = 1;
-        int num = a[1];
+        double num = 0;
         double average;
         double[] list = new double[a.length];
-        list[0] = a[0];
+        
        
         for(int i=0; i<a.length; i++){
-            num = 0;
             
-                for(int j=i; j<b; j++){
-                    num += a[j];
-                } 
+            num += a[i];
+            if(count>b){
+                num -= a[i-b];
+            }
             
             average = num/b;
+            if(count<b){
+                average=num/count;
+            }
             list[i] = average;
             
+            count++;
         }
-        for(int i=0; i<a.length; i++){
-            System.out.print(a[i] + ",");
-        }
+        list[0] = a[0];
         
         return list;
     }
